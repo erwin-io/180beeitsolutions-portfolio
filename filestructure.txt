@@ -3,6 +3,11 @@
     |-- pki-validation
         |-- E74EB922EB49EC54D398CBE27C0E047F.txt
 |-- 404.html
+|-- api
+    |-- index.js
+    |-- package-lock.json
+    |-- package.json
+    |-- template.html
 |-- blog-grid.html
 |-- blog-single.html
 |-- bundle.js
@@ -77,11 +82,8 @@
     |-- team-03.png
     |-- testimonial.png
 |-- index.html
-|-- index.js
 |-- LICENSE
-|-- package.json
 |-- README.md
 |-- signin.html
 |-- signup.html
 |-- style.css
-|-- template.html
