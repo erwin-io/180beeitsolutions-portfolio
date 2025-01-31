@@ -3,29 +3,45 @@ import fs from 'fs';
 import path from 'path';
 import express from 'express';
 import cors from 'cors';
+import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 // Create a transporter using Gmail SMTP
 let transporter = nodemailer.createTransport({
-    host: 'mail.privateemail.com',
-    port: 587 , // or 465 if using SSL
-    secure: false, // use SSL for port 465
+    host: process.env.EMAIL_HOST || 'mail.privateemail.com',
+    port: process.env.EMAIL_PORT || 587, // or 465 if using SSL
+    secure: process.env.EMAIL_SECURE === 'true', // use SSL for port 465
     auth: {
-        user: 'support@180beeitsolutions.com', // Replace with your email
-        pass: '=s8GQ$fT58zWK##'   // Replace with your email password
+        user: process.env.EMAIL_USER, // Replace with your email
+        pass: process.env.EMAIL_PASS   // Replace with your email password
     }
 });
-// Read the HTML template
-const __dirname = path.dirname(decodeURIComponent(new URL(import.meta.url).pathname).substring(1));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const templatePath = path.join(__dirname, 'template.html');
 let templateContent = fs.readFileSync(templatePath, 'utf8');
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: '*',  // Allow all origins for testing; restrict this in production
+    methods: ['GET', 'POST'],  // Ensure POST is included
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.post('/contact-us', (req, res) => {
+    console.log("process.env.EMAIL_HOST", process.env.EMAIL_HOST);
+    console.log("process.env.EMAIL_PORT", process.env.EMAIL_PORT);
+    console.log("process.env.EMAIL_SECURE", process.env.EMAIL_SECURE);
+    console.log("process.env.EMAIL_USER", process.env.EMAIL_USER);
+    console.log("process.env.EMAIL_PASS", process.env.EMAIL_PASS);
+    console.log("process.env.EMAIL_FROM", process.env.EMAIL_FROM);
+    console.log("process.env.PORT", process.env.PORT);
     const {
         fullname, 
         email ,
@@ -40,7 +56,7 @@ app.post('/contact-us', (req, res) => {
     templateContent = templateContent.replace("{{FROM}}", "support@180beeitsolutions.com");
 
     let mailOptions = {
-        from: '"180bee IT Solutions Support" <support@180beeitsolutions.com>', // Sender address
+        from: `"${process.env.EMAIL_FROM}" <${process.env.EMAIL_USER}>`, // Sender address
         to: email,
         subject: `Message: ${subject}`, // Subject line
         html: templateContent

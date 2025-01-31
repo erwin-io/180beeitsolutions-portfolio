@@ -4,6 +4,11 @@
         |-- E74EB922EB49EC54D398CBE27C0E047F.txt
 |-- 404.html
 |-- api
+    |-- .env
+    |-- .gitignore
+    |-- .vercel
+        |-- project.json
+        |-- README.txt
     |-- index.js
     |-- package-lock.json
     |-- package.json

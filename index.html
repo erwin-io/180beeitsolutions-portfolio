@@ -1323,7 +1323,7 @@
       const data = Object.fromEntries(formData.entries());
 
       loaderModal.classList.remove('hidden');
-      fetch('http://localhost:3000/contact-us', {
+      fetch('https://180beeitsolutions-portfolio-api.vercel.app/contact-us', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
