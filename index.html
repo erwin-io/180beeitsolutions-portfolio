@@ -24,8 +24,8 @@
     <div class="bb ze ki xn 2xl:ud-px-0 oo wf yf i">
       <div class="vd to/4 tc wf yf">
         <a href="index.html">
-          <img class="om" src="images/logo-light.png" alt="Logo Light" />
-          <img class="xc nm" src="images/logo-dark.png" alt="Logo Dark" />
+          <img class="om" src="images/logo-light.png" alt="Logo Light" style="width: 130px;height: 35px;"/>
+          <img class="xc nm" src="images/logo-dark.png" alt="Logo Dark" style="width: 130px;height: 35px;"/>
         </a>
 
         <!-- Hamburger Toggle BTN -->
@@ -1009,7 +1009,7 @@
 
                 <div class="vd to/2">
                   <label class="rc ac" for="subject">Subject</label>
-                  <input type="text" for="subject" id="subject" placeholder="Type your subject"
+                  <input type="text" for="subject" name="subject" id="subject" placeholder="Type your subject"
                     class="vd ph sg zk xm _g ch pm hm dm dn em pl/50 xi mi" />
                 </div>
               </div>
@@ -1066,8 +1066,8 @@
         <div class="tc uf ap gg fp">
           <div class="animate_top zd/2 to/4">
             <a href="index.html">
-              <img src="images/logo-light.png" alt="Logo" class="om" />
-              <img src="images/logo-dark.png" alt="Logo" class="xc nm" />
+              <img src="images/logo-light.png" alt="Logo" class="om" style="width: 130px;height: 35px;" />
+              <img src="images/logo-dark.png" alt="Logo" class="xc nm" style="width: 130px;height: 35px;" />
             </a>
 
             <p class="lc fb">Empowering your business with innovative IT solutions.</p>
@@ -1261,6 +1261,18 @@
         onclick="closeModal()">Close</button>
     </div>
   </div>
+  <div id="loaderModal" style="z-index: 999;" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+      <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full text-center">
+          <!-- Loader here -->
+          <div class="flex flex-col items-center">
+              <svg class="animate-spin h-10 w-10 text-blue-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <p class="text-gray-700 text-lg">Loading, please wait...</p>
+          </div>
+      </div>
+  </div>
   <script>
     //  Pricing Table
     const setup = () => {
@@ -1302,6 +1314,7 @@
 
     const contactForm = document.getElementById('contactForm');
     const successModal = document.getElementById('successModal');
+    const loaderModal = document.getElementById('loaderModal');
 
     contactForm.addEventListener('submit', function (event) {
       event.preventDefault();
@@ -1309,7 +1322,8 @@
       const formData = new FormData(contactForm);
       const data = Object.fromEntries(formData.entries());
 
-      fetch('https://api.example.com/contact', {
+      loaderModal.classList.remove('hidden');
+      fetch('http://localhost:3000/contact-us', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -1318,19 +1332,22 @@
       })
         .then(response => response.json())
         .then(data => {
+          loaderModal.classList.add('hidden');
           if (data.success) {
-            successModal.classList.remove('hidden');
             contactForm.reset();
+            successModal.classList.remove('hidden');
           } else {
             alert('There was an error submitting the form. Please try again.');
           }
         })
         .catch(error => {
+          loaderModal.classList.add('hidden');
           console.error('Error:', error);
           alert('There was an error submitting the form. Please try again.');
         });
     });
-
+  </script>
+  <script>
     function closeModal() {
       successModal.classList.add('hidden');
     }

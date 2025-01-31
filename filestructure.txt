@@ -79,7 +79,6 @@
 |-- index.html
 |-- index.js
 |-- LICENSE
-|-- package-lock.json
 |-- package.json
 |-- README.md
 |-- signin.html
