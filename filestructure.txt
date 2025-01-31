@@ -8,6 +8,7 @@
     |-- package-lock.json
     |-- package.json
     |-- template.html
+    |-- vercel.json
 |-- blog-grid.html
 |-- blog-single.html
 |-- bundle.js
