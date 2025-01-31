@@ -33,15 +33,22 @@ app.use(cors({
     methods: ['GET', 'POST'],  // Ensure POST is included
     allowedHeaders: ['Content-Type', 'Authorization']
 }));
-
 app.post('/contact-us', (req, res) => {
-    console.log("process.env.EMAIL_HOST", process.env.EMAIL_HOST);
-    console.log("process.env.EMAIL_PORT", process.env.EMAIL_PORT);
-    console.log("process.env.EMAIL_SECURE", process.env.EMAIL_SECURE);
-    console.log("process.env.EMAIL_USER", process.env.EMAIL_USER);
-    console.log("process.env.EMAIL_PASS", process.env.EMAIL_PASS);
-    console.log("process.env.EMAIL_FROM", process.env.EMAIL_FROM);
-    console.log("process.env.PORT", process.env.PORT);
+    const requiredFields = [
+        { field: 'fullname', desc: 'Full name' },
+        { field: 'email', desc: 'Email address' },
+        { field: 'phone', desc: 'Phone number' },
+        { field: 'subject', desc: 'Subject' },
+        { field: 'message', desc: 'Message' }
+    ];
+    const missingFields = requiredFields.filter(item => !req.body[item.field] || req.body[item.field].trim() === '').map(res=> res.desc);
+
+    if (missingFields.length > 0) {
+        return res.status(400).send({
+            success: false,
+            error: 'The following fields are required: ' + missingFields.join(', ')
+        });
+    }
     const {
         fullname, 
         email ,

@@ -24,8 +24,8 @@
     <div class="bb ze ki xn 2xl:ud-px-0 oo wf yf i">
       <div class="vd to/4 tc wf yf">
         <a href="index.html">
-          <img class="om" src="images/logo-light.png" alt="Logo Light" style="width: 130px;height: 35px;"/>
-          <img class="xc nm" src="images/logo-dark.png" alt="Logo Dark" style="width: 130px;height: 35px;"/>
+          <img class="om" src="images/logo-light.png" alt="Logo Light" style="width: 130px;height: 35px;" />
+          <img class="xc nm" src="images/logo-dark.png" alt="Logo Dark" style="width: 130px;height: 35px;" />
         </a>
 
         <!-- Hamburger Toggle BTN -->
@@ -1244,7 +1244,7 @@
 
   <!-- ====== Back To Top End ===== -->
 
-  <!-- Modal -->
+  <!-- Success Modal -->
   <div id="successModal" style="z-index: 999;"
     class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
     <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full text-center">
@@ -1254,25 +1254,50 @@
         <path d="M12 22C6.48 22 2 17.52 2 12S6.48 2 12 2s10 4.48 10 10s-4.48 10-10 10z" />
       </svg>
       <h1 class="text-2xl font-bold text-gray-800 mb-2">Message Sent Successfully!</h1>
-      <p class="text-gray-600 mb-6">Thank you for contacting us. We have received your message and will get back to you
-        shortly.</p>
+      <p class="text-gray-600 mb-6">Thank you for contacting us. We have received your message and will get back to
+        you shortly.</p>
       <button
         class="inline-block bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition duration-300"
-        onclick="closeModal()">Close</button>
+        onclick="closeModal()">Close
+      </button>
     </div>
   </div>
-  <div id="loaderModal" style="z-index: 999;" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
-      <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full text-center">
-          <!-- Loader here -->
-          <div class="flex flex-col items-center">
-              <svg class="animate-spin h-10 w-10 text-blue-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-              <p class="text-gray-700 text-lg">Loading, please wait...</p>
-          </div>
+
+  <!-- Loader Modal -->
+  <div id="loaderModal" style="z-index: 999;"
+    class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full text-center">
+      <div class="flex flex-col items-center">
+        <svg class="animate-spin h-10 w-10 text-blue-500 mb-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+          viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+          </path>
+        </svg>
+        <p class="text-gray-700 text-lg">Loading, please wait...</p>
       </div>
+    </div>
   </div>
+
+  <!-- Error Modal -->
+  <div id="errorModal" style="z-index: 999;"
+    class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+    <div class="bg-white shadow-lg rounded-lg p-8 max-w-md w-full text-center">
+      <svg class="mx-auto mb-4" fill="none" height="100" stroke="currentColor" stroke-linecap="round"
+        stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="100" xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z" />
+      </svg>
+      <h1 class="text-2xl font-bold text-gray-800 mb-2">Error Submitting Form</h1>
+      <p class="text-gray-600 mb-6">There was an error submitting the form. Please try again.</p>
+      <p class="text-gray-600 mb-6 error"></p>
+      <button class="inline-block bg-red-500 text-white px-6 py-2 rounded-full hover:bg-red-600 transition duration-300"
+        onclick="closeErrorModal()">Close
+      </button>
+    </div>
+  </div>
+
   <script>
     //  Pricing Table
     const setup = () => {
@@ -1310,11 +1335,13 @@
       };
     };
   </script>
-  <script type="module">
 
+
+  <script type="module">
     const contactForm = document.getElementById('contactForm');
     const successModal = document.getElementById('successModal');
     const loaderModal = document.getElementById('loaderModal');
+    const errorModal = document.getElementById('errorModal');
 
     contactForm.addEventListener('submit', function (event) {
       event.preventDefault();
@@ -1331,27 +1358,35 @@
         body: JSON.stringify(data),
       })
         .then(response => response.json())
-        .then(data => {
+        .then(res => {
           loaderModal.classList.add('hidden');
-          if (data.success) {
+          console.log(res);
+          if (res.success) {
             contactForm.reset();
             successModal.classList.remove('hidden');
           } else {
-            alert('There was an error submitting the form. Please try again.');
+            errorModal.classList.remove('hidden');
+            errorModal.querySelector(".error").innerHTML = res.error;
           }
         })
         .catch(error => {
+          errorModal.querySelector(".error").innerHTML = error.message;
           loaderModal.classList.add('hidden');
           console.error('Error:', error);
-          alert('There was an error submitting the form. Please try again.');
+          errorModal.classList.remove('hidden');
         });
     });
+
   </script>
   <script>
     function closeModal() {
       successModal.classList.add('hidden');
     }
-  </script>
+
+    function closeErrorModal() {
+      errorModal.classList.add('hidden');
+    }
+    </script>
   <script defer src="bundle.js"></script>
 </body>
 
