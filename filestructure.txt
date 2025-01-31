@@ -1,3 +1,88 @@
 |-- .gitignore
+|-- .well-known
+    |-- pki-validation
+        |-- E74EB922EB49EC54D398CBE27C0E047F.txt
+|-- 404.html
+|-- blog-grid.html
+|-- blog-single.html
+|-- bundle.js
+|-- favicon.ico
+|-- images
+    |-- 404.svg
+    |-- about-01.png
+    |-- about-02.png
+    |-- about-03.png
+    |-- blog-01.png
+    |-- blog-02.png
+    |-- blog-03.png
+    |-- blog-04.png
+    |-- blog-05.png
+    |-- blog-big.png
+    |-- blog-small-01.png
+    |-- blog-small-02.png
+    |-- blog-small-03.png
+    |-- brand-dark-01.svg
+    |-- brand-dark-02.svg
+    |-- brand-dark-03.svg
+    |-- brand-dark-04.svg
+    |-- brand-dark-05.svg
+    |-- brand-dark-06.svg
+    |-- brand-light-01.svg
+    |-- brand-light-02.svg
+    |-- brand-light-03.svg
+    |-- brand-light-04.svg
+    |-- brand-light-05.svg
+    |-- brand-light-06.svg
+    |-- hero.png
+    |-- icon-01.svg
+    |-- icon-02.svg
+    |-- icon-03.svg
+    |-- icon-04.svg
+    |-- icon-05.svg
+    |-- icon-06.svg
+    |-- icon-07.svg
+    |-- icon-calender.svg
+    |-- icon-man.svg
+    |-- icon-moon.svg
+    |-- icon-play.svg
+    |-- icon-quote.svg
+    |-- logo-dark.png
+    |-- logo-dark.svg
+    |-- logo-light.png
+    |-- logo-light.svg
+    |-- project-01.png
+    |-- project-02.png
+    |-- project-03.png
+    |-- project-04.png
+    |-- shape-01.svg
+    |-- shape-02.svg
+    |-- shape-03.svg
+    |-- shape-04.svg
+    |-- shape-05.svg
+    |-- shape-06.svg
+    |-- shape-07.svg
+    |-- shape-08.svg
+    |-- shape-09.svg
+    |-- shape-10.svg
+    |-- shape-11.svg
+    |-- shape-12.svg
+    |-- shape-13.svg
+    |-- shape-14.svg
+    |-- shape-15.svg
+    |-- shape-16.svg
+    |-- shape-17.svg
+    |-- shape-18.svg
+    |-- team-01.png
+    |-- team-02.png
+    |-- team-03.png
+    |-- testimonial.png
+|-- index.html
+|-- index.js
 |-- LICENSE
+|-- package-lock.json
+|-- package.json
 |-- README.md
+|-- signin.html
+|-- signup.html
+|-- style.css
+|-- template.html
